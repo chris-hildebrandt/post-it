@@ -1,0 +1,16 @@
+
+  {
+    "name": "post-it",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd post-it.client && npm i",
+      "setup:server": "cd post-it && npm i",
+      "start": "node post-it/index.js"
+    },
+    "engines": {
+      "node": "^14.17.0"
+    }
+  }
+  
