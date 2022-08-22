@@ -33,4 +33,18 @@ we start in the server models, import schema from mongoose and export const x = 
 
 create a virtual if you need one, virtuals are for tying relationships together for the name 'creator' we want to tie the localfield: 'creatorId' to the foreignfield: '_id' from that user. this foreign field references 'Account' so put in a ref: 'Account' justOne: true this makes just one array to store these virtuals in. the virtual is information about the schema and the other relation that is stored on the other object so that we don't have to store a copy of the full object in both places. 
 
-now make the controller on the server. extend the BaseController this can be exported from utils, again refer to the valuesController make a constructor and place the super inside of it. the super is the constructor of the extended thing(basecontroller in this case), the super gets the ('api/whatever') which registers the door. then this.router is used to   go to postman to create some data and test our api 
+now make the controller on the server. extend the BaseController this can be exported from utils, again refer to the valuesController make a constructor and place the super inside of it. the super is the constructor of the extended thing(basecontroller in this case), the super gets the ('api/whatever') which registers the door. then this.router is used to register the different functions/requests remember crud! 
+
+.post goes in this.router,
+
+then write the actual function, is this function accessible by everyone? should it be? place .use(auth...) to prevent access to some features, and it also supplies the user account info to the request. userInfo.id is obtained from auth0 and can be used in the function to add it to the req.data.creatorId
+
+ go to postman to create some data and test our api postman tests will be a new tool we can use during lab and checkpoints
+
+DO NOT CHANGE THINGS IN THE TEST!! the only thing you change in the test is providing an auth bearer token. don't worry about unresolved variables, they are created during the test.
+
+tokens are obtained after login from the network tab in dev tools, put it in the current value in the variables tab, make sure to save.
+
+start server prior to test, run the test many times, test after each function! 
+
+now go to the service and finish the function started in the controller. follow each function through to the end.
