@@ -48,3 +48,46 @@ tokens are obtained after login from the network tab in dev tools, put it in the
 start server prior to test, run the test many times, test after each function! 
 
 now go to the service and finish the function started in the controller. follow each function through to the end.
+
+zoom: 
+
+
+
+
+day 2:
+
+working on the client side, make sure all the server files are closed to avoid confusion
+
+make an album form component, vt, make a form div do the @submit.prevent="handleSubmit" used a snippet to get a basic form, place the component div in this case <AlbumForm/> in the homepage to look at it
+do a little styling to make it useable 
+
+variables in scss lets us change the colors of bootstrap built int colors. remember lighten, darken, and opacity bootstrap
+
+we make sure the form is saveable by making an editable which looks like const editable = ref({})
+make sure to import ref! return the editable so it can be used. then v-model your inputs. the server takes care of the ids, and archived will be defaulted to false, and we don't want the user to have the option to start an album out as archived.
+
+the create album method is made in the return, and is async. use the new vue dev tool to look at the form and other elements which update in real time! 
+
+send the method to the service since we are not overwriting the data in our appstate, we want to push the new album into the array, post it to the server, then push or unshift it to the appstate, unshift will put it at the top of the page. this doesn't fix the way the server stores the info though, so we have to go after the .find()you can do a .sort(createdat: -1).populate...
+will list the items newest to oldest. -1 is shorthand in mongoose for smaller to larger numbers. 1 and -1 and a-b are used for these sorting methods.
+
+now we put the form in a modal you don't have to move the modal target outside of the component, but you do need the <AblumForm/> div on what ever page the button is at. if you have the modal button in the navbar you need to have the tag accesible at that level or the button won't work on all pages. 
+
+start the filter bar which is placed on the homepage, get buttons labled for each filter term. you need to have the filter in the same location as the v-for. we don't generally want to modify what is in the appstate because if you remove objects and then filter again you will have diminishing returns
+
+filter syntax looks like @click="filterTerm = 'whatever'" then we want to filter the computed, not the appstate. return filterTerm so it is accessible, then simply place a .filter inside the computed .filter(a=>filterTerm.value ? a.category == filterTerm.value: true) this ternary allows an empty filter to return true for all categories don't forget to make a ref for the filterTerm, which in this case is an empty string. you can filter out a category by using the != instead of the ==
+
+make a new page called the album details page, a new page needs to be registered in the router determine the level of security.
+
+then back on the startpage you set up either a router push from the js or a router-link in the html. the routerlink syntax <router-link to: "{ name: 'whateverpage', params: {whateverid: whatever.id}}"
+
+takeaway from today's lecture: user router.push instead of router-link
+
+using router push you need to import router, and const router = useRouter() if you want to be moved you use the router. the router push method will not have access to the id though so you must push props into the setup!
+
+now that we are at the album details page we need make an onmounted and a getAlbumById, which we have to pass an Id, the Id is in the url when we navigate to the page so that is where we need to get it from. this is good because it doesn't get cleared out on a reload like the appstate does. this is where we will do the useRoute() function! in the setup useRoute so that we can put the route.params.id in our getAlbumById function. on the service side do a get to the api, + id. now in the appstate make a variable to save the active album and then sae the res do a computed for the active album
+pages need to be self sustaining. the pages act like controllers for their own responsibilities.
+
+now you want to get pictures by album id this is automatic so it goes in the setup, and probably onmounted as well. this means we will need to make a picturesservice. pass the route.params.albumid do a computed for the pictures so you can draw them using a v-for on a pictureCard component. vfor in the parent div with the PictureCard div as the child you can actually put the v-for in the PictureCard dive if that's the only thing you are passing the advantage of using the parent is you can start every card off in the row.. pass the props to the picturecard, and since there isn't a model for "picture" the type of prop is picture in the card use an img tag with a bound ":" src="picture.imgUrl"
+
+the key in the v-for is just something unique that labels the object for vue so that if it is edited or deleted vue can update only that item. you can technically just use the index and you can even v-for without a key at all but this isn't a good practice.
