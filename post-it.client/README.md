@@ -102,3 +102,9 @@ controller for collaborators is next. we need a service as well, we need to regi
 make the method for finding collaborator you collab with by account id, this function is only usable by a logged in user so the account can only be one thing. 
 
 to remove a collaborator we delete the many to many object by the many to many id. generic id param makes sense if it is in the service of the thing with an id the more basic delete will allow one user to remove only themselves from a collab.
+
+you don't need a form to create the many to many object, you can just build it in the function by grabbing the info from the appstate, where both the albumid and the account id exist. 
+
+collabs need a function in both sides of the many to many relationship, we should have a rule that prevents a collaborator from having more than one relationship with an album. the virtual property is an extra layer on the object so remember to . notate down to the data. c.profiles.picture.
+
+don't let your front end create bad data, and dont let your backend accept bad data. to prevent dupes, block on the server and the client side.
